@@ -1,5 +1,5 @@
-canvas = document.querySelector('#game')
-ctx = canvas.getContext('2d')
+let canvas = document.querySelector('#game')
+let ctx = canvas.getContext('2d')
 
 let snake = {
     score: 0,
@@ -41,7 +41,10 @@ function isFood(){
             ctx.closePath()
         }
     }else{
-        snake.food = {x:Math.floor(Math.random()*canvas.width/10)*10, y:Math.floor(Math.random()*canvas.height/10)*10}
+        snake.food = {
+            x:Math.floor(Math.random()*canvas.width/10)*10,
+            y:Math.floor(Math.random()*canvas.height/10)*10
+        }
         isFood()     
     }
 }
@@ -75,7 +78,7 @@ function drawScore(){
 
 function dead(){
     console.log('die')
-    alert('You Dead. Score: '+snake.score)
+    // alert('You Dead. Score: '+snake.score)
     window.location.reload()
 }
 
@@ -128,6 +131,8 @@ function draw(){
         cell.y += snake.cellSide*cell.dy
     })
 }
+
+
 document.addEventListener('keyup',function(event){
     if(event.keyCode == 32){
         snake.fps = 200
@@ -160,7 +165,7 @@ document.addEventListener('keydown', function(event){
             dy:-1,
         })
     }
-    if(event.keyCode == 40 && (snake.tail.length< 2 || snake.tail[0].dy != -1)){
+    if(event.keyCode == 40 && (snake.tail.length < 2 || snake.tail[0].dy != -1)){
         snake.turnPoints.push({
             x:snake.tail[0].x,
             y:snake.tail[0].y,
@@ -169,6 +174,7 @@ document.addEventListener('keydown', function(event){
         })
     }
     if(event.keyCode == 32){
+        document.querySelector('p').style.display = 'none'
         if(snake.fps != 60){
             snake.fps = 60
             clearInterval(interval)
